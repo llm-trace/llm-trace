@@ -5,8 +5,8 @@
 ## Installation
 
 ```bash
-pip install llmtracing[langchain]   # LangChain only
-pip install llmtracing[langgraph]   # LangChain + LangGraph
+pip install llmtracex[langchain]   # LangChain only
+pip install llmtracex[langgraph]   # LangChain + LangGraph
 ```
 
 ## Basic usage

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "llmtracing"
+name = "llmtracex"
 version = "0.2.0"
 description = "Lightweight LLM observability. SQLite-based tracing with zero infrastructure."
 readme = "README.md"
