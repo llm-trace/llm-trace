@@ -40,10 +40,10 @@ One SQLite file. One `pip install`. Full tracing for any LLM application.
 ## Installation
 
 ```bash
-pip install llmtrace                    # zero deps — @observe, wrappers, CLI
-pip install llmtrace[langchain]         # + LangChain CallbackHandler
-pip install llmtrace[langgraph]         # + LangChain + LangGraph
-pip install llmtrace[otel]              # + OpenTelemetry SpanProcessor
-pip install llmtrace[webhook]           # + FastAPI webhook router
-pip install llmtrace[all]               # everything
+pip install llm-tracer                    # zero deps — @observe, wrappers, CLI
+pip install llm-tracer[langchain]         # + LangChain CallbackHandler
+pip install llm-tracer[langgraph]         # + LangChain + LangGraph
+pip install llm-tracer[otel]              # + OpenTelemetry SpanProcessor
+pip install llm-tracer[webhook]           # + FastAPI webhook router
+pip install llm-tracer[all]               # everything
 ```

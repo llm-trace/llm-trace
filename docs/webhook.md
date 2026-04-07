@@ -5,7 +5,7 @@ The webhook integration lets you send traces to llm-trace from **any language or
 ## Installation
 
 ```bash
-pip install llmtrace[webhook]
+pip install llm-tracer[webhook]
 ```
 
 ## Starting the webhook server
