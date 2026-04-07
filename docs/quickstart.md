@@ -5,7 +5,7 @@ Up and running in under 2 minutes.
 ## 1. Install
 
 ```bash
-pip install llm-tracer
+pip install llmtracing
 ```
 
 ## 2. Trace your first function

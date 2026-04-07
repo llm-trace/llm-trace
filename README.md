@@ -3,10 +3,10 @@
 <img src="assets/banner.png" alt="llm-trace" width="800"/>
 
 [![CI](https://github.com/llm-trace/llm-trace/actions/workflows/ci.yml/badge.svg)](https://github.com/llm-trace/llm-trace/actions/workflows/ci.yml)
-[![PyPI version](https://badge.fury.io/py/llm-tracer.svg)](https://pypi.org/project/llm-tracer/)
-[![Python](https://img.shields.io/pypi/pyversions/llm-tracer)](https://pypi.org/project/llm-tracer/)
+[![PyPI version](https://badge.fury.io/py/llmtracing.svg)](https://pypi.org/project/llmtracing/)
+[![Python](https://img.shields.io/pypi/pyversions/llmtracing)](https://pypi.org/project/llmtracing/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Downloads](https://img.shields.io/pypi/dm/llm-tracer)](https://pypi.org/project/llm-tracer/)
+[![Downloads](https://img.shields.io/pypi/dm/llmtracing)](https://pypi.org/project/llmtracing/)
 
 [Installation](#installation) • [Quick Start](docs/quickstart.md) • [@observe()](docs/observe.md) • [Wrappers](docs/wrappers.md) • [LangChain](docs/langchain.md) • [Dashboard](docs/dashboard.md) • [Full Docs](docs/index.md)
 
@@ -17,14 +17,14 @@
 One SQLite file. One `pip install`. Full tracing for any LLM application.
 
 ```bash
-pip install llm-tracer
+pip install llmtracing
 ```
 
 ## Why llm-trace?
 
 | Feature | Langfuse | LangSmith | **llm-trace** |
 |---------|----------|-----------|---------------|
-| Setup | Docker + PostgreSQL + Redis | Cloud account | `pip install llm-tracer` |
+| Setup | Docker + PostgreSQL + Redis | Cloud account | `pip install llmtracing` |
 | Infrastructure | 4 services | Managed | **Zero** |
 | Storage | ClickHouse | Cloud | **SQLite** |
 | Dependencies | Many | Many | **Zero** |
@@ -162,12 +162,12 @@ export LLM_TRACE_RELEASE=v1.2.3
 ## Optional Dependencies
 
 ```bash
-pip install llm-tracer                    # Zero deps, @observe + wrappers + CLI
-pip install llm-tracer[langchain]         # + LangChain CallbackHandler
-pip install llm-tracer[langgraph]         # + LangChain + LangGraph
-pip install llm-tracer[otel]              # + OpenTelemetry SpanProcessor
-pip install llm-tracer[webhook]           # + FastAPI webhook router
-pip install llm-tracer[all]               # Everything
+pip install llmtracing                    # Zero deps, @observe + wrappers + CLI
+pip install llmtracing[langchain]         # + LangChain CallbackHandler
+pip install llmtracing[langgraph]         # + LangChain + LangGraph
+pip install llmtracing[otel]              # + OpenTelemetry SpanProcessor
+pip install llmtracing[webhook]           # + FastAPI webhook router
+pip install llmtracing[all]               # Everything
 ```
 
 ## License

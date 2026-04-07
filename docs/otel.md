@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-pip install llm-tracer[otel]
+pip install llmtracing[otel]
 ```
 
 ## Quick start
