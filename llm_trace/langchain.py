@@ -32,7 +32,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Sequence
-from typing import Any
+from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
 from llm_trace.core import _current_observation, _current_trace, tracer
@@ -47,30 +47,33 @@ from llm_trace.models import (
 
 logger = logging.getLogger("llm-trace.langchain")
 
-try:
+if TYPE_CHECKING:
     from langchain_core.callbacks import BaseCallbackHandler
     from langchain_core.messages import BaseMessage
     from langchain_core.outputs import LLMResult
+
+try:
+    from langchain_core.callbacks import BaseCallbackHandler  # type: ignore[no-redef]
+    from langchain_core.messages import BaseMessage  # type: ignore[no-redef]
+    from langchain_core.outputs import LLMResult  # type: ignore[no-redef]
 
     _HAS_LANGCHAIN = True
 except ImportError:
     _HAS_LANGCHAIN = False
 
-    # Stub para que el módulo se importe sin langchain
-    class BaseCallbackHandler:  # type: ignore[no-redef]
-        pass
-
 
 def _serialize_messages(messages: Any) -> Any:
     """Serializa mensajes de LangChain a dict."""
     if isinstance(messages, list):
-        result = []
+        result: list[Any] = []
         for msg in messages:
             if hasattr(msg, "type") and hasattr(msg, "content"):
-                result.append({
-                    "role": getattr(msg, "type", "unknown"),
-                    "content": str(getattr(msg, "content", ""))[:2000],
-                })
+                result.append(
+                    {
+                        "role": getattr(msg, "type", "unknown"),
+                        "content": str(getattr(msg, "content", ""))[:2000],
+                    }
+                )
             elif isinstance(msg, dict):
                 result.append(msg)
             else:
@@ -385,6 +388,7 @@ class CallbackHandler(BaseCallbackHandler):
             obs = self._observations.get(str(run_id))
             if obs and obs.model:
                 from llm_trace.wrappers import _calculate_cost
+
                 cost = _calculate_cost(obs.model, input_t, output_t)
 
         self._end_observation(run_id, output=output, usage=usage, cost=cost)
@@ -484,10 +488,12 @@ class CallbackHandler(BaseCallbackHandler):
         for doc in documents[:20]:
             content = getattr(doc, "page_content", str(doc))
             meta = getattr(doc, "metadata", {})
-            doc_summaries.append({
-                "content": content[:300],
-                "metadata": meta,
-            })
+            doc_summaries.append(
+                {
+                    "content": content[:300],
+                    "metadata": meta,
+                }
+            )
         self._end_observation(
             run_id,
             output={"documents": doc_summaries, "count": len(documents)},

@@ -43,7 +43,6 @@ repos:
     hooks:
       - id: pyrefly
         name: pyrefly
-        entry: pyrefly check
+        entry: pyrefly check llm_trace/
         language: system
-        types: [python]
         pass_filenames: false

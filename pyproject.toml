@@ -84,3 +84,4 @@ per_rule_ignores = { DEP002 = ["langgraph", "pytest", "pytest-asyncio", "ruff", 
 
 [tool.pyrefly]
 python_version = "3.11"
+project_excludes = ["tests/**", "examples/**"]

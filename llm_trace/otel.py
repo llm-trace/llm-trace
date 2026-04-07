@@ -39,7 +39,7 @@ from __future__ import annotations
 
 import logging
 from datetime import UTC, datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from llm_trace.core import tracer
 from llm_trace.models import (
@@ -53,25 +53,24 @@ from llm_trace.models import (
 
 logger = logging.getLogger("llm-trace.otel")
 
-try:
+if TYPE_CHECKING:
     from opentelemetry import trace as otel_trace
-    from opentelemetry.sdk.trace import (
+    from opentelemetry.sdk.trace import ReadableSpan, SpanProcessor, TracerProvider
+    from opentelemetry.trace import StatusCode
+
+try:
+    from opentelemetry import trace as otel_trace  # type: ignore[no-redef]
+    from opentelemetry.sdk.trace import (  # type: ignore[no-redef]
         ReadableSpan,
         SpanProcessor,
         TracerProvider,
     )
     from opentelemetry.sdk.trace.export import SimpleSpanProcessor  # noqa: F401
-    from opentelemetry.trace import StatusCode
+    from opentelemetry.trace import StatusCode  # type: ignore[no-redef]
 
     _HAS_OTEL = True
 except ImportError:
     _HAS_OTEL = False
-
-    class SpanProcessor:  # type: ignore[no-redef]
-        pass
-
-    class ReadableSpan:  # type: ignore[no-redef]
-        pass
 
 
 # ── Attribute mapping ─────────────────────────────────────
@@ -309,8 +308,15 @@ class LlmTraceSpanProcessor(SpanProcessor):
         # Nombre del span sugiere LLM
         name = getattr(span, "name", "").lower()
         llm_keywords = {
-            "chat", "completion", "generate", "embed", "retrieve",
-            "llm", "agent", "tool", "rerank",
+            "chat",
+            "completion",
+            "generate",
+            "embed",
+            "retrieve",
+            "llm",
+            "agent",
+            "tool",
+            "rerank",
         }
         return any(kw in name for kw in llm_keywords)
 
@@ -375,7 +381,16 @@ class LlmTraceSpanProcessor(SpanProcessor):
         # Extraer metadata (atributos no-estándar)
         attrs = dict(getattr(span, "attributes", {}) or {})
         metadata = {}
-        standard_prefixes = ("gen_ai.", "llm.", "openinference.", "retrieval.", "embedding.", "tool.", "input.", "output.")
+        standard_prefixes = (
+            "gen_ai.",
+            "llm.",
+            "openinference.",
+            "retrieval.",
+            "embedding.",
+            "tool.",
+            "input.",
+            "output.",
+        )
         for k, v in attrs.items():
             if not any(k.startswith(p) for p in standard_prefixes):
                 metadata[k] = v
@@ -406,7 +421,8 @@ class LlmTraceSpanProcessor(SpanProcessor):
                     "max_tokens": _get_attr(span, _GENAI_MAX_TOKENS),
                 }.items()
                 if v is not None
-            } or None,
+            }
+            or None,
             usage=usage,
             cost=self._calculate_cost(model, usage) if model and usage else None,
             error_message=error_msg,
@@ -574,8 +590,7 @@ def _activate_instrumentor(name: str, provider: Any) -> None:
         logger.info("Activated instrumentor: %s (%s)", name, entry["class"])
     except ImportError:
         logger.warning(
-            "Instrumentor '%s' requires package '%s'. "
-            "Install with: pip install %s",
+            "Instrumentor '%s' requires package '%s'. Install with: pip install %s",
             name,
             entry["package"],
             entry["package"].replace(".", "-"),

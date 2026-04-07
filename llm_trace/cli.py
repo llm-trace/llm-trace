@@ -22,6 +22,7 @@ from llm_trace.storage import Storage
 
 # ── ANSI colors ───────────────────────────────────────────
 
+
 class C:
     RESET = "\033[0m"
     BOLD = "\033[1m"
@@ -179,7 +180,11 @@ def cmd_show(storage: Storage, args: argparse.Namespace) -> None:
 
     # Build tree
     obs_map = {o.id: o for o in trace.observations}
-    roots = [o for o in trace.observations if o.parent_id is None or o.parent_id not in obs_map]
+    roots = [
+        o
+        for o in trace.observations
+        if o.parent_id is None or o.parent_id not in obs_map
+    ]
 
     def print_tree(obs_list: list, depth: int = 0) -> None:
         for obs in obs_list:
@@ -204,7 +209,7 @@ def cmd_show(storage: Storage, args: argparse.Namespace) -> None:
                 print(f"{err_indent}{C.RED}{obs.error_message[:200]}{C.RESET}")
 
             # Children
-            children = [o for o in trace.observations if o.parent_id == obs.id]
+            children = [o for o in obs_map.values() if o.parent_id == obs.id]
             if children:
                 print_tree(children, depth + 1)
 
