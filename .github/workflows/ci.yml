@@ -18,8 +18,8 @@ jobs:
         run: pip install -e ".[dev]"
       - name: Lint with ruff
         run: ruff check .
-      - name: Type check with mypy
-        run: mypy llm_trace/ --ignore-missing-imports
+      - name: Type check with pyrefly
+        run: pyrefly check llm_trace/
 
   test:
     runs-on: ubuntu-latest

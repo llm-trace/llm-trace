@@ -46,7 +46,7 @@ all = [
     "opentelemetry-sdk>=1.20",
     "fastapi>=0.100",
 ]
-dev = ["pytest", "pytest-asyncio", "ruff", "mypy", "pytest-mock"]
+dev = ["pytest", "pytest-asyncio", "ruff", "pyrefly", "pytest-mock"]
 
 [project.urls]
 Homepage = "https://github.com/llm-trace/llm-trace"
@@ -78,6 +78,9 @@ markers = ["integration: requires external API keys (deselect with -m 'not integ
 testpaths = ["tests"]
 norecursedirs = ["tests/integration"]
 
-[tool.mypy]
+[tool.deptry]
+exclude = ["examples", "tests"]
+per_rule_ignores = { DEP002 = ["langgraph", "pytest", "pytest-asyncio", "ruff", "pyrefly", "pytest-mock", "openai", "anthropic"] }
+
+[tool.pyrefly]
 python_version = "3.11"
-strict = true
