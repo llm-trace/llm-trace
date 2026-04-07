@@ -89,6 +89,7 @@ class TestObserveDecorator:
 
     def test_async_function(self, tracer: Tracer) -> None:
         import asyncio
+
         from llm_trace import observe
 
         @observe()
