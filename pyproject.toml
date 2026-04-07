@@ -9,7 +9,7 @@ description = "Lightweight LLM observability. SQLite-based tracing with zero inf
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
-authors = [{ name = "Marc" }]
+authors = [{ name = "Marc Mayol", email = "marcmayolorell@gmail.com" }]
 keywords = [
     "llm", "observability", "tracing", "monitoring",
     "openai", "anthropic", "langchain", "langgraph",
@@ -49,9 +49,9 @@ all = [
 dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
 
 [project.urls]
-Homepage = "https://github.com/marc/llm-trace"
-Repository = "https://github.com/marc/llm-trace"
-Issues = "https://github.com/marc/llm-trace/issues"
+Homepage = "https://github.com/llm-trace/llm-trace"
+Repository = "https://github.com/llm-trace/llm-trace"
+Issues = "https://github.com/llm-trace/llm-trace/issues"
 
 [project.scripts]
 llm-trace = "llm_trace.cli:main"
