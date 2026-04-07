@@ -59,6 +59,18 @@ llm-trace = "llm_trace.cli:main"
 [tool.hatch.build.targets.wheel]
 packages = ["llm_trace"]
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "assets/",
+    "docs/",
+    "examples/",
+    "tests/",
+    ".pre-commit-config.yaml",
+    ".github/",
+    "*.md",
+    "!README.md",
+]
+
 [tool.ruff]
 line-length = 88
 target-version = "py311"
