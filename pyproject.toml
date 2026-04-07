@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-trace"
+version = "0.2.0"
+description = "Lightweight LLM observability. SQLite-based tracing with zero infrastructure."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Marc" }]
+keywords = [
+    "llm", "observability", "tracing", "monitoring",
+    "openai", "anthropic", "langchain", "langgraph",
+    "opentelemetry", "llama-index", "ai", "agents",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: System :: Monitoring",
+    "Typing :: Typed",
+]
+
+# ZERO required dependencies
+dependencies = []
+
+[project.optional-dependencies]
+openai = ["openai>=1.0"]
+anthropic = ["anthropic>=0.30"]
+langchain = ["langchain-core>=0.2"]
+langgraph = ["langchain-core>=0.2", "langgraph>=0.2"]
+otel = ["opentelemetry-api>=1.20", "opentelemetry-sdk>=1.20"]
+webhook = ["fastapi>=0.100"]
+all = [
+    "openai>=1.0",
+    "anthropic>=0.30",
+    "langchain-core>=0.2",
+    "langgraph>=0.2",
+    "opentelemetry-api>=1.20",
+    "opentelemetry-sdk>=1.20",
+    "fastapi>=0.100",
+]
+dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
+
+[project.urls]
+Homepage = "https://github.com/marc/llm-trace"
+Repository = "https://github.com/marc/llm-trace"
+Issues = "https://github.com/marc/llm-trace/issues"
+
+[project.scripts]
+llm-trace = "llm_trace.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["llm_trace"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
