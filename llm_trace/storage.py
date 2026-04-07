@@ -10,10 +10,11 @@ from __future__ import annotations
 import json
 import sqlite3
 import threading
+from collections.abc import Generator
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Generator
+from typing import Any
 
 from llm_trace.models import (
     CostDetails,

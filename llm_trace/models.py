@@ -7,13 +7,13 @@ Cada Observation puede ser Generation, Span, Event, Tool, Agent, etc.
 from __future__ import annotations
 
 import uuid
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
-from enum import Enum
+from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 
 
-class ObservationType(str, Enum):
+class ObservationType(StrEnum):
     """Tipos semánticos de observation, inspirados en Langfuse V4."""
 
     GENERATION = "generation"
@@ -26,13 +26,13 @@ class ObservationType(str, Enum):
     GUARDRAIL = "guardrail"
 
 
-class ScoreDataType(str, Enum):
+class ScoreDataType(StrEnum):
     NUMERIC = "numeric"
     CATEGORICAL = "categorical"
     BOOLEAN = "boolean"
 
 
-class ScoreSource(str, Enum):
+class ScoreSource(StrEnum):
     API = "api"
     HUMAN = "human"
     LLM_JUDGE = "llm_judge"
@@ -40,7 +40,7 @@ class ScoreSource(str, Enum):
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _new_id() -> str:

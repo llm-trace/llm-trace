@@ -31,19 +31,17 @@ Usage con LangGraph streaming + FastAPI:
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 from uuid import UUID
 
-from llm_trace.core import tracer, _current_trace, _current_observation
+from llm_trace.core import _current_observation, _current_trace, tracer
 from llm_trace.models import (
     CostDetails,
     Observation,
     ObservationType,
-    Score,
     Trace,
     UsageDetails,
-    _new_id,
     _now,
 )
 

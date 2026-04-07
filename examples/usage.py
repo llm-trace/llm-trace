@@ -10,10 +10,9 @@ Demuestra los 4 patrones principales:
 import asyncio
 import time
 
-from llm_trace import observe, tracer, score, flush, shutdown
+from llm_trace import flush, observe, score, shutdown, tracer
 from llm_trace.models import ObservationType
-from llm_trace.wrappers import wrap_openai, wrap_anthropic
-
+from llm_trace.wrappers import wrap_anthropic, wrap_openai
 
 # ═══════════════════════════════════════════════════════════
 # Ejemplo 1: Decoradores básicos con anidamiento
@@ -143,7 +142,7 @@ def anthropic_example():
 
 def manual_example():
     """Usa la API de bajo nivel para control total."""
-    from llm_trace.models import UsageDetails, CostDetails
+    from llm_trace.models import CostDetails, UsageDetails
 
     trace = tracer.create_trace(
         name="manual-trace",

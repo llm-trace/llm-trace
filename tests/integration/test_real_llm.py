@@ -3,24 +3,29 @@ Test con LLM real: ChatOpenAI + LangGraph + llm-trace
 
     export OPENAI_API_KEY=sk-...
     pip install langchain-openai
-    python test_real_llm.py
+    python tests/test_real_llm.py
 """
 
-import sys, os, time
-from typing import Annotated, TypedDict, Literal
+import pytest
+
+pytestmark = pytest.mark.integration
+
+import os
+import sys
+import time
+from typing import Annotated, Literal, TypedDict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from llm_trace import tracer, score, flush
-from llm_trace.langchain import CallbackHandler
-
-from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from langchain_core.tools import tool
-from langgraph.graph import StateGraph, END, START
+from langchain_openai import ChatOpenAI
+from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
 
+from llm_trace import flush, score, tracer
+from llm_trace.langchain import CallbackHandler
 
 # ── Tools ─────────────────────────────────────────────────
 
@@ -99,4 +104,4 @@ flush()
 stats = tracer.storage.get_stats()
 print(f"\n📊 {stats['trace_count']} traces, {stats['total_tokens']} tokens, ${stats['total_cost']}, {stats['avg_latency_ms']}ms avg")
 print(f"   Models: {[m['model'] for m in stats['top_models']]}")
-print(f'\n🚀 python -c "from llm_trace import tracer; tracer.dashboard(port=7600, open_browser=False)"')
+print('\n🚀 python -c "from llm_trace import tracer; tracer.dashboard(port=7600, open_browser=False)"')

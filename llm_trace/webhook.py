@@ -38,7 +38,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Any
 
@@ -306,8 +306,8 @@ def create_fastapi_router() -> Any:
     try:
         from fastapi import APIRouter, Request
         from fastapi.responses import JSONResponse
-    except ImportError:
-        raise ImportError("FastAPI required: pip install fastapi")
+    except ImportError as e:
+        raise ImportError("FastAPI required: pip install fastapi") from e
 
     router = APIRouter()
 

@@ -6,11 +6,15 @@ Solo pasas el CallbackHandler y ya.
 
 Ejecutar:
     cd llm-trace
-    python test_langgraph.py
+    python tests/test_langgraph.py
 """
 
-import sys
+import pytest
+
+pytestmark = pytest.mark.integration
+
 import os
+import sys
 import time
 from typing import Annotated, TypedDict
 
@@ -18,11 +22,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Reset singleton
 from llm_trace.core import Tracer
-Tracer._instance = None
 
-from llm_trace import observe, tracer, score, flush
-from llm_trace.models import ObservationType
-from llm_trace.langchain import CallbackHandler
+Tracer._instance = None
 
 from langchain_core.messages import (
     AIMessage,
@@ -32,10 +33,13 @@ from langchain_core.messages import (
     ToolMessage,
 )
 from langchain_core.tools import tool
-from langgraph.graph import StateGraph, END, START
+from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
 
+from llm_trace import flush, observe, score, tracer
+from llm_trace.langchain import CallbackHandler
+from llm_trace.models import ObservationType
 
 # ═══════════════════════════════════════════════════════════
 # Herramientas
@@ -271,7 +275,7 @@ def run():
 
         for o in t.observations:
             d = f"{o.duration_ms:.0f}ms" if o.duration_ms else "-"
-            parent = f" (child)" if o.parent_id else ""
+            parent = " (child)" if o.parent_id else ""
             print(f"     ├─ {o.type.value:12s} {o.name[:45]:45s} {d:>8s}{parent}")
 
         t_scores = tracer.storage.get_scores(trace_id=t.id)

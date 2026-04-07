@@ -21,7 +21,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 
 # llm-trace imports
-from llm_trace import observe, tracer, score, flush
+from llm_trace import flush, observe, score, tracer
 from llm_trace.langchain import CallbackHandler
 from llm_trace.models import ObservationType
 

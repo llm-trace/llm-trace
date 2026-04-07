@@ -46,7 +46,7 @@ all = [
     "opentelemetry-sdk>=1.20",
     "fastapi>=0.100",
 ]
-dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
+dev = ["pytest", "pytest-asyncio", "ruff", "mypy", "pytest-mock"]
 
 [project.urls]
 Homepage = "https://github.com/llm-trace/llm-trace"
@@ -65,6 +65,18 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP", "B", "SIM"]
+ignore = [
+    "E501",   # line too long — embedded HTML in dashboard.py
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402", "F401"]          # sys.path manipulation + integration imports
+"examples/*" = ["E402", "F401"]       # example scripts are standalone
+
+[tool.pytest.ini_options]
+markers = ["integration: requires external API keys (deselect with -m 'not integration')"]
+testpaths = ["tests"]
+norecursedirs = ["tests/integration"]
 
 [tool.mypy]
 python_version = "3.11"

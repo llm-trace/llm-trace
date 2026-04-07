@@ -14,8 +14,6 @@ Usage:
 from __future__ import annotations
 
 import functools
-import time
-from datetime import datetime, timezone
 from typing import Any
 
 from llm_trace.core import (
@@ -309,7 +307,7 @@ def wrap_anthropic(client: Any) -> Any:
 
         model = kwargs.get("model", "unknown")
         messages = kwargs.get("messages", [])
-        system = kwargs.get("system", None)
+        system = kwargs.get("system")
 
         obs = Observation(
             trace_id=trace.id if trace else _new_id(),

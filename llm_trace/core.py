@@ -8,6 +8,7 @@ asíncrono via un background thread.
 from __future__ import annotations
 
 import asyncio
+import contextlib
 import functools
 import inspect
 import logging
@@ -15,10 +16,10 @@ import os
 import queue
 import threading
 import traceback
+from collections.abc import Callable
 from contextvars import ContextVar
-from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, TypeVar, ParamSpec, overload
+from typing import Any, ParamSpec, TypeVar, overload
 
 from llm_trace.models import (
     CostDetails,
@@ -29,7 +30,6 @@ from llm_trace.models import (
     ScoreSource,
     Trace,
     UsageDetails,
-    _new_id,
     _now,
 )
 from llm_trace.storage import Storage
@@ -422,10 +422,8 @@ def observe(
             @functools.wraps(fn)
             def sync_wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
                 loop = None
-                try:
+                with contextlib.suppress(RuntimeError):
                     loop = asyncio.get_running_loop()
-                except RuntimeError:
-                    pass
 
                 if loop and loop.is_running():
                     # Ya estamos en un event loop — no podemos hacer await

@@ -38,17 +38,16 @@ Instrumentadores opcionales: pip install openinference-instrumentation-llama-ind
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Any, Sequence
+from datetime import UTC, datetime
+from typing import Any
 
-from llm_trace.core import tracer, _current_trace, _current_observation
+from llm_trace.core import tracer
 from llm_trace.models import (
     CostDetails,
     Observation,
     ObservationType,
     Trace,
     UsageDetails,
-    _new_id,
     _now,
 )
 
@@ -61,7 +60,7 @@ try:
         SpanProcessor,
         TracerProvider,
     )
-    from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+    from opentelemetry.sdk.trace.export import SimpleSpanProcessor  # noqa: F401
     from opentelemetry.trace import StatusCode
 
     _HAS_OTEL = True
@@ -227,7 +226,7 @@ def _ns_to_datetime(ns: int | None) -> datetime | None:
     """Convierte nanosegundos OTEL a datetime."""
     if ns is None or ns == 0:
         return None
-    return datetime.fromtimestamp(ns / 1e9, tz=timezone.utc)
+    return datetime.fromtimestamp(ns / 1e9, tz=UTC)
 
 
 class LlmTraceSpanProcessor(SpanProcessor):
@@ -313,10 +312,7 @@ class LlmTraceSpanProcessor(SpanProcessor):
             "chat", "completion", "generate", "embed", "retrieve",
             "llm", "agent", "tool", "rerank",
         }
-        if any(kw in name for kw in llm_keywords):
-            return True
-
-        return False
+        return any(kw in name for kw in llm_keywords)
 
     def on_start(self, span: ReadableSpan, parent_context: Any = None) -> None:
         """Llamado cuando un span inicia (no usado, procesamos on_end)."""

@@ -14,10 +14,11 @@ Usage:
     tracer.dashboard(port=7600)
 """
 
-from llm_trace.core import observe, tracer, Tracer, flush, shutdown
-from llm_trace.models import Trace, Observation, Score, ObservationType
-from llm_trace.wrappers import wrap_openai, wrap_anthropic
+from llm_trace.core import Tracer, flush, observe, shutdown, tracer
+from llm_trace.models import Observation, ObservationType, Score, Trace
 from llm_trace.scores import score
+from llm_trace.wrappers import wrap_anthropic, wrap_openai
+
 
 # Lazy imports para módulos con dependencias opcionales
 def __getattr__(name: str):
