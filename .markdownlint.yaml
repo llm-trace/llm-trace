@@ -1,0 +1,7 @@
+default: true
+MD013: false        # line length — badges y links son largos
+MD033: false        # inline HTML — necesario para banner centrado y footer
+MD041: false        # first line heading — la primera línea es el banner (div)
+MD051: false        # link fragments — #installation es una sección válida
+MD032: false        # blanks around lists — estilo propio
+MD040: false        # fenced code language — algunos bloques no tienen lenguaje

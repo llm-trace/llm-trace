@@ -173,3 +173,9 @@ pip install llm-trace[all]               # Everything
 ## License
 
 MIT
+
+---
+
+<div align="center">
+  Made with ❤️ from Mallorca by <a href="https://github.com/marcmayol">marcmayol</a>
+</div>
