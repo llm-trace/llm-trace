@@ -1,10 +1,16 @@
-# llm-trace
+<div align="center">
+
+<img src="assets/banner.png" alt="llm-trace" width="800"/>
 
 [![CI](https://github.com/llm-trace/llm-trace/actions/workflows/ci.yml/badge.svg)](https://github.com/llm-trace/llm-trace/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/llm-trace.svg)](https://pypi.org/project/llm-trace/)
 [![Python](https://img.shields.io/pypi/pyversions/llm-trace)](https://pypi.org/project/llm-trace/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Downloads](https://img.shields.io/pypi/dm/llm-trace)](https://pypi.org/project/llm-trace/)
+
+[Installation](#installation) • [Quick Start](docs/quickstart.md) • [@observe()](docs/observe.md) • [Wrappers](docs/wrappers.md) • [LangChain](docs/langchain.md) • [Dashboard](docs/dashboard.md) • [Full Docs](docs/index.md)
+
+</div>
 
 **Lightweight LLM observability. Zero infrastructure.**
 
