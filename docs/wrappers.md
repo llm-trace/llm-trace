@@ -118,7 +118,7 @@ If the model is not in the pricing table, tokens are still recorded but cost wil
 ## Installation
 
 ```bash
-pip install llm-trace[openai]      # for OpenAI
-pip install llm-trace[anthropic]   # for Anthropic
-pip install llm-trace[all]         # both
+pip install llmtrace[openai]      # for OpenAI
+pip install llmtrace[anthropic]   # for Anthropic
+pip install llmtrace[all]         # both
 ```

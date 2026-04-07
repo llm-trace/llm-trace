@@ -5,3 +5,4 @@ MD041: false        # first line heading — la primera línea es el banner (div
 MD051: false        # link fragments — #installation es una sección válida
 MD032: false        # blanks around lists — estilo propio
 MD040: false        # fenced code language — algunos bloques no tienen lenguaje
+MD024: false        # duplicate headings — docs con secciones repetidas (OpenAI/Anthropic)
